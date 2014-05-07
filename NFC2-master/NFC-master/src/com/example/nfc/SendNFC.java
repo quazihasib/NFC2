@@ -24,7 +24,7 @@ public class SendNFC extends Activity
 
 	public static String phnNumber, text;
 	TextView et;
-	
+	 
 	public static String DEBUG_TAG = SendNFC.class.getSimpleName();
 	
 	@SuppressLint("NewApi")
@@ -36,6 +36,7 @@ public class SendNFC extends Activity
 		
 		mNfcAdapter = NfcAdapter.getDefaultAdapter(this);
 
+//		MainActivity.savePreferences("a", "c");
 	  
 	    et = (TextView)findViewById(R.id.textView1);
 	    et.setText("Tap device to send Via Nfc");

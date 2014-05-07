@@ -88,17 +88,20 @@ public class SendList extends Activity {
 						.findViewById(R.id.TextView02);
 
 				convertView.setTag(holder);
-			} else {
+			}
+			else 
+			{
 				holder = (ViewHolder) convertView.getTag();
 			}
 
 			holder.text1.setText(ListItem.Phone[position]);
 			holder.text2.setText(ListItem.Text[position]);
-
+			
 			return convertView;
 		}
 
-		static class ViewHolder {
+		static class ViewHolder 
+		{
 			TextView text1;
 			TextView text2;
 		}

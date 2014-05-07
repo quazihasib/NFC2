@@ -18,13 +18,14 @@ public class MainActivity extends Activity
 	public static int countNumbers;
 	
 	public static boolean listClickEnable;
+	public static MainActivity instance;
 	
 	@Override
 	public void onCreate(Bundle savedState)
 	{
 		super.onCreate(savedState);
 		setContentView(R.layout.main_page);
-
+		instance=this;
 		listClickEnable = false;
 		
 		Button btnReceiveNFC = (Button) findViewById(R.id.ReceiveNFC);
@@ -84,8 +85,8 @@ public class MainActivity extends Activity
             	  phoneNumber = etPhnNumber.getText().toString();
             	  phoneText = etText.getText().toString();
             	  
-            	  Log.d("a", "phone:"+phoneNumber);
-            	  Log.d("a", "text:"+phoneText);
+            	  Log.d("MainActivity", "phone:"+phoneNumber);
+            	  Log.d("MainActivity", "text:"+phoneText);
             	  
             	  startActivity(new Intent(MainActivity.this, SendNFC.class));
             	  dialog.dismiss();
@@ -94,7 +95,7 @@ public class MainActivity extends Activity
             	  ListItem.Phone[countNumbers]=phoneNumber; 
             	  
             	  countNumbers++;
-            	  Log.d("a", "countNumbers:"+countNumbers);
+            	  Log.d("MainActivity", "countNumbers:"+countNumbers);
               }
           });
           
@@ -110,6 +111,8 @@ public class MainActivity extends Activity
               }
           });
 	}
+	
+	
 	@Override
 	public void onResume()
 	{
