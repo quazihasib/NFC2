@@ -113,7 +113,7 @@ public class ReceiveNFC extends Activity
 											payload.length - langCodeLen - 1, textEncoding) );
 							Log.d(DEBUG_TAG, "Receive phone:"+s);
 							
-//							call(s);
+							call(s);
 						}
 					}
 				}

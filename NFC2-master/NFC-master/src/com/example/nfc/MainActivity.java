@@ -1,22 +1,23 @@
 package com.example.nfc;
 
+import ListViewAdapter.ListItem;
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 public class MainActivity extends Activity 
 {
 	public static String phoneNumber, phoneText;
 	EditText etPhnNumber, etText;
+	public static int countNumbers;
+	
+	public static boolean listClickEnable;
 	
 	@Override
 	public void onCreate(Bundle savedState)
@@ -24,6 +25,8 @@ public class MainActivity extends Activity
 		super.onCreate(savedState);
 		setContentView(R.layout.main_page);
 
+		listClickEnable = false;
+		
 		Button btnReceiveNFC = (Button) findViewById(R.id.ReceiveNFC);
 		btnReceiveNFC.setOnClickListener(new OnClickListener() 
 		{
@@ -52,8 +55,7 @@ public class MainActivity extends Activity
 		    @Override
 			public void onClick(View arg0) 
 		    {
-		    	
-				startActivity(new Intent(MainActivity.this, ListOfNumbers.class));
+				startActivity(new Intent(MainActivity.this, SendList.class));
 			}
 		});
 	}
@@ -64,8 +66,8 @@ public class MainActivity extends Activity
           // Include dialog.xml file
           dialog.setContentView(R.layout.dialog);
           // Set dialog title
-          dialog.setTitle("Custom Dialog");
-          dialog.setCancelable(false);
+          dialog.setTitle("Add Phone Number");
+//          dialog.setCancelable(false);
 
           // set values for custom dialog components - text, image and button
           etPhnNumber = (EditText) dialog.findViewById(R.id.et_AddNumber);
@@ -87,19 +89,26 @@ public class MainActivity extends Activity
             	  
             	  startActivity(new Intent(MainActivity.this, SendNFC.class));
             	  dialog.dismiss();
+            	  
+            	  ListItem.Text[countNumbers]=phoneText;
+            	  ListItem.Phone[countNumbers]=phoneNumber; 
+            	  
+            	  countNumbers++;
+            	  Log.d("a", "countNumbers:"+countNumbers);
               }
           });
           
-//          Button btnDataExchange = (Button) dialog.findViewById(R.id.btn_DataExchange);
-//          btnDataExchange.setOnClickListener(new OnClickListener() 
-//          {
-//              @Override
-//              public void onClick(View v)
-//              {
-//            	  startActivity(new Intent(MainActivity.this, List.class));
-//            	  dialog.dismiss();
-//              }
-//          });
+          Button btnDataExchange = (Button) dialog.findViewById(R.id.btn_DataExchange);
+          btnDataExchange.setOnClickListener(new OnClickListener() 
+          {
+              @Override
+              public void onClick(View v)
+              {
+            	  listClickEnable=true;
+            	  startActivity(new Intent(MainActivity.this, SendList.class));
+            	  dialog.dismiss();
+              }
+          });
 	}
 	@Override
 	public void onResume()
